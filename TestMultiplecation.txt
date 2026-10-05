@@ -1,0 +1,21 @@
+public class TestMultipleCatch {
+    public static void main(String[] args) {
+        try {
+            int[] vivascores = new int[3];
+
+            vivascores[0] = 85;
+            vivascores[1] = 90;
+            vivascores[2] = 95;
+
+            // Provoque une erreur : l'indice 5 n'existe pas
+            vivascores[5] = 100;
+
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic Error occurred");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array Index Error: You accessed an invalid index");
+        } catch (Exception e) {
+            System.out.println("General Exception Handler");
+        }
+    }
+}

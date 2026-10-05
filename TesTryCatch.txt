@@ -1,0 +1,19 @@
+public class TestTryCatch {
+    public static void main(String[] args) {
+        String studentName = "Vimal";
+        System.out.println(studentName + " started math calculation...");
+
+        try {
+            int totalMarks = 100;
+            int subjects = 0; // Trying to divide by zero
+            int result = totalMarks / subjects; // Throws ArithmeticException
+
+            System.out.println("Result: " + result); // Skipped when exception occurs
+        } catch (ArithmeticException e) {
+            System.out.println("Exception caught: Division by zero is not allowed for " + studentName + ".");
+            System.out.println("System Error Detail: " + e.getMessage());
+        }
+
+        System.out.println(studentName + " continues executing normally.");
+    }
+}
