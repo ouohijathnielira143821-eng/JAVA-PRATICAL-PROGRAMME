@@ -1,0 +1,44 @@
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class JDBCUpdate {
+    public static void main(String[] args) {
+        String url = "jdbc:oracle:thin:@localhost:1521:XE";
+        String user = "system";
+        String password = "your_password";
+
+        String sql = "UPDATE EMP SET ENAME = ?, SAL = ? WHERE EMPNO = ?";
+
+        try (
+            Connection con = DriverManager.getConnection(url, user, password);
+            Scanner sc = new Scanner(System.in);
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            System.out.print("Enter employee number: ");
+            int empno = sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Enter new employee name: ");
+            String ename = sc.nextLine();
+
+            System.out.print("Enter new salary: ");
+            double sal = sc.nextDouble();
+
+            ps.setString(1, ename);
+            ps.setDouble(2, sal);
+            ps.setInt(3, empno);
+
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("Employee updated successfully.");
+            } else {
+                System.out.println("Employee not found.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+    }
+}

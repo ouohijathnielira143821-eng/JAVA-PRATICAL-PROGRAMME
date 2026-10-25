@@ -1,0 +1,35 @@
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class JDBCDelete {
+    public static void main(String[] args) {
+        String url = "jdbc:oracle:thin:@localhost:1521:XE";
+        String user = "system";
+        String password = "your_password";
+
+        String sql = "DELETE FROM EMP WHERE EMPNO = ?";
+
+        try (
+            Connection con = DriverManager.getConnection(url, user, password);
+            Scanner sc = new Scanner(System.in);
+            PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            System.out.print("Enter employee number to delete: ");
+            int empno = sc.nextInt();
+
+            ps.setInt(1, empno);
+
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("Employee deleted successfully.");
+            } else {
+                System.out.println("Employee not found.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+    }
+}
